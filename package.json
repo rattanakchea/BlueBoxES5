@@ -1,0 +1,21 @@
+{
+  "name": "BlueBoxES5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/http-server/bin/http-server",
+    "webpack": "./node_modules/.bin/webpack --watch --progress --colors"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-latest": "^6.16.0",
+    "http-server": "^0.9.0",
+    "webpack": "^1.13.3"
+  }
+}
