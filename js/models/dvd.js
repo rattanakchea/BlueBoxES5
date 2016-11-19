@@ -1,3 +1,6 @@
+
+//var _ = require('../../bower_components/underscore/underscore');
+
 export class Dvd {
 
     constructor(title, image, description){
