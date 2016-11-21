@@ -3,27 +3,41 @@
  */
 
 import {Dvd} from './models/dvd';
-
 import {DvdView} from './views/dvd';
 import {DvdListView} from './views/dvdList';
 
-import {module} from './utils/data';
+import {mockAPI} from './utils/mockAPI';
 
-var app = 'my app is cool';
-
-let dvd = new Dvd('some title', 'image location', 'description');
+var api = mockAPI({key: 'blueBox2'});
 
 
-var faker = module();
-var DvdCollection = faker.getDvds(5);
+// fetch data
+api.get().then(function(data){
 
-let dvdLisView = new DvdListView(DvdCollection);
-dvdLisView.render();
+    runApp(data);
+
+});
 
 
-let dvdView = new DvdView(DvdCollection[0]);
-dvdView.render();
+api.get(1).then(function(theDvd){
+    console.log(theDvd);
 
-console.log('dvdView: ', dvdView);
+}, function(err){
+    console.og(err);
+});
 
-console.log(dvd);
+
+function runApp(DvdCollection){
+
+    let dvdLisView = new DvdListView(DvdCollection);
+    dvdLisView.render();
+
+    let dvdView = new DvdView(DvdCollection[0]);
+    dvdView.render();
+}
+
+
+
+
+
+
