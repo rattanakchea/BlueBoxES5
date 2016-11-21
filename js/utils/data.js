@@ -32,7 +32,9 @@ function module(){
     };
 
     return {
-        getOneDvd: getOneDvd(),
-        getDvds: getDvds()
+        getOneDvd: getOneDvd,
+        getDvds: getDvds
     }
-}
+};
+
+export {module}

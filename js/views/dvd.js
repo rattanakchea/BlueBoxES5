@@ -1,8 +1,9 @@
 import {View} from './view';
 
-function dvdTemplate(title, image){
+// parameters deconstructor ES5
+function dvdTemplate({title, image}){
 
-    return `<div class="col-xs-3">
+    return `<div class="col-xs-3" style="display:inline-block; float:left; position: relative;">
                 <div class="card">
                     <a href="#"><img class="card-img-top" src=${image} alt="movie title" style="width:200px"></a>
                 </div>
@@ -15,8 +16,9 @@ function dvdTemplate(title, image){
 
 export class DvdView extends View {
 
-   constructor(){
-       super('#dvdView', dvdTemplate('fixed title', 'https://api.dvdxpress.net/t/findingdory_rt2.jpg'));
+   constructor(DvdModel){
+       super('#dvdView', dvdTemplate(DvdModel));
+       this.model = DvdModel;
    }
 
 }

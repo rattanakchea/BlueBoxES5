@@ -7,8 +7,6 @@ export class View {
         this.template = template;
     }
 
-
-
     render(){
         this.el.innerHTML = this.template;
     }
