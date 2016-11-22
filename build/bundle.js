@@ -50,13 +50,20 @@
 
 	var _dvd2 = __webpack_require__(2);
 
-	var _dvdList = __webpack_require__(4);
-
-	var _mockAPI = __webpack_require__(5);
-
 	/**
 	 * Created by rchea on 11/17/16.
 	 */
+
+	var app = 'my app is cool';
+
+	var dvd = new _dvd.Dvd('some title', 'image location', 'description');
+
+	var dvdView = new _dvd2.DvdView();
+	dvdView.render();
+
+	console.log('dvdView: ', dvdView);
+
+	console.log(dvd);
 
 	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
 
@@ -136,25 +143,18 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// parameters deconstructor ES5
-	function dvdTemplate(_ref) {
-	    var title = _ref.title,
-	        image = _ref.image;
+	function dvdTemplate(title, image) {
 
-
-	    return '<div class="col-xs-3" style="display:inline-block; float:left; position: relative;">\n                <div class="card">\n                    <a href="#"><img class="card-img-top" src=' + image + ' alt="movie title" style="width:200px"></a>\n                </div>\n                <div class="card-block">\n                    <h5 class="card-title">' + title + '</h5>\n                </div>\n            </div>';
+	    return '<div class="col-xs-3">\n                <div class="card">\n                    <a href="#"><img class="card-img-top" src=' + image + ' alt="movie title" style="width:200px"></a>\n                </div>\n                <div class="card-block">\n                    <h5 class="card-title">' + title + '</h5>\n                </div>\n            </div>';
 	}
 
 	var DvdView = exports.DvdView = function (_View) {
 	    _inherits(DvdView, _View);
 
-	    function DvdView(DvdModel) {
+	    function DvdView() {
 	        _classCallCheck(this, DvdView);
 
-	        var _this = _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this, '#dvdView', dvdTemplate(DvdModel)));
-
-	        _this.model = DvdModel;
-	        return _this;
+	        return _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this, '#dvdView', dvdTemplate('fixed title', 'https://api.dvdxpress.net/t/findingdory_rt2.jpg')));
 	    }
 
 	    return DvdView;
