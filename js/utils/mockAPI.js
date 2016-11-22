@@ -1,11 +1,10 @@
 import {module} from './data';
 
-
 var faker = module();
-
-
 var DvdCollection = faker.getDvds(3);
 
+
+// define data structure
 
 var mockAPI = function (config) {
     var api = {};

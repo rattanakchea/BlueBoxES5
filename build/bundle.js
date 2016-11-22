@@ -265,8 +265,9 @@
 	var _data = __webpack_require__(6);
 
 	var faker = (0, _data.module)();
-
 	var DvdCollection = faker.getDvds(3);
+
+	// define data structure
 
 	var mockAPI = function mockAPI(config) {
 	    var api = {};
