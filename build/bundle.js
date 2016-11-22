@@ -60,25 +60,20 @@
 
 	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
 
-	// fetch data
+	// Fetch data
 	api.get().then(function (data) {
-
 	    runApp(data);
 	});
 
 	api.get(1).then(function (theDvd) {
 	    console.log(theDvd);
 	}, function (err) {
-	    console.og(err);
+	    console.log(err);
 	});
 
 	function runApp(DvdCollection) {
-
 	    var dvdLisView = new _dvdList.DvdListView(DvdCollection);
 	    dvdLisView.render();
-
-	    var dvdView = new _dvd2.DvdView(DvdCollection[0]);
-	    dvdView.render();
 	}
 
 /***/ },
@@ -145,13 +140,20 @@
 	    return '<div class="col-xs-3" style="display:inline-block; float:left; position: relative;">\n                <div class="card">\n                    <a href="#"><img class="card-img-top" src=' + image + ' alt="movie title" style="width:200px"></a>\n                </div>\n                <div class="card-block">\n                    <h5 class="card-title">' + title + '</h5>\n                </div>\n            </div>';
 	}
 
+	function template2(_ref2) {
+	    var title = _ref2.title,
+	        image = _ref2.image;
+
+	    return '<div class="col-sm-4 col-lg-4 col-md-4">\n                <div class="thumbnail">\n                <img src=' + image + ' alt="">\n                <div class="caption">\n                    <h4><a href="detail.html">' + title + '</a></h4>\n                    </div>\n                    <div class="ratings">\n                        <p class="pull-right"><a href="#">Add to cart</a></p>\n                        <p>\n                        <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                        </p>\n                    </div>\n                </div>\n            </div>';
+	}
+
 	var DvdView = exports.DvdView = function (_View) {
 	    _inherits(DvdView, _View);
 
 	    function DvdView(DvdModel) {
 	        _classCallCheck(this, DvdView);
 
-	        var _this = _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this, '#dvdView', dvdTemplate(DvdModel)));
+	        var _this = _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this, '#dvdView', template2(DvdModel)));
 
 	        _this.model = DvdModel;
 	        return _this;
@@ -264,14 +266,15 @@
 
 	var _data = __webpack_require__(6);
 
-	var faker = (0, _data.module)();
+	var faker = (0, _data.module)(); // jscs:disable
+
 	var DvdCollection = faker.getDvds(3);
 
 	// define data structure
 
 	var mockAPI = function mockAPI(config) {
-	    var api = {};
-	    var key = config.key;
+	    var api = {},
+	        key = config.key;
 	    create();
 
 	    // setup localstorage
@@ -284,8 +287,9 @@
 	                save(DvdCollection);
 	            }
 	        } else {
-	            // have some data
-	            // do nothing
+
+	            //override localstorage
+	            save(DvdCollection);
 	        }
 	    };
 
@@ -355,8 +359,8 @@
 
 	    // get a single dvd by id
 	    function getADvd(id) {
-	        var id = parseInt(id);
-	        var allDvds = getData();
+	        var id = parseInt(id),
+	            allDvds = getData();
 	        var theDvd = _.findWhere(allDvds, { id: id });
 	        return new Promise(function (resolve, reject) {
 	            theDvd ? resolve(theDvd) : reject({ err: 'Dvd not found - id: ' + id });
@@ -372,10 +376,10 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	// Data Layer
@@ -388,32 +392,66 @@
 	// };
 
 	function getDefaultDvd(id) {
-	    return {
-	        id: id,
-	        title: "Some title",
-	        image: "https://api.dvdxpress.net/t/findingdory_rt2.jpg",
-	        description: "Some movie description"
-	    };
+	  return {
+	    id: id,
+	    title: 'Ice Age: Collision',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	    description: 'Scrat’s epic pursuit of the elusive acorn cata'
+	  };
+	}
+
+	var dvds = [{
+	  id: 0,
+	  title: 'Ice Age: Collision Course',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	  description: 'Scrat’s epic pursuit of the elusive acorn catapults him into the universe where he' + 'accidentally sets off a series of cosmic events that.'
+	}, {
+	  id: 1,
+	  title: 'The Legend of Tarzan',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
+	  description: 'Scark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	}, {
+	  id: 2,
+	  title: 'X-Men: Apocalypse',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
+	  description: 'Scrark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	}, {
+	  id: 3,
+	  title: 'Ice Age: Collision Course',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	  description: 'Scrat’s epict full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	}, {
+	  id: 4,
+	  title: 'The Legend of Tarzan',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
+	  description: 'Scrat’s of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	}, {
+	  id: 5,
+	  title: 'X-Men: Apocalypse',
+	  image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
+	  description: 'Scrat’s epic comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	}];
+
+	function createDvd(id, title, image, trailer) {
+	  var description = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+
+	  return {
+	    id: id,
+	    title: title,
+	    image: image,
+	    description: description,
+	    trailer: trailer
+	  };
 	}
 
 	function _module() {
 
-	    var id = 0; //static id, closure
-	    var getOneDvd = getDefaultDvd;
-
-	    var getDvds = function getDvds(count) {
-	        var arr = [];
-	        while (count-- > 0) {
-	            arr.push(getDefaultDvd(id++));
-	        }
-
-	        return arr;
-	    };
-
-	    return {
-	        getOneDvd: getOneDvd,
-	        getDvds: getDvds
-	    };
+	  return {
+	    getOneDvd: getDefaultDvd,
+	    getDvds: function getDvds() {
+	      return dvds;
+	    }
+	  };
 	};
 
 	exports.module = _module;

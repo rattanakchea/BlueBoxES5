@@ -1,3 +1,4 @@
+// jscs:disable
 import {module} from './data';
 
 var faker = module();
@@ -7,30 +8,31 @@ var DvdCollection = faker.getDvds(3);
 // define data structure
 
 var mockAPI = function (config) {
-    var api = {};
-    var key = config.key;
+    var api = {},
+        key = config.key;
     create();
 
     // setup localstorage
-    function create (data) {
-        if (!getData()){
-            if (data){
+    function create(data) {
+        if (!getData()) {
+            if (data) {
                 save(data);
             } else {
                 //sample data
                 save (DvdCollection);
             }
         } else {
-            // have some data
-            // do nothing
+
+            //override localstorage
+            save (DvdCollection);
         }
     };
 
-    function save(data){
+    function save(data) {
         localStorage.setItem(key, JSON.stringify(data));
     }
 
-    function getData(){
+    function getData() {
         return JSON.parse(localStorage.getItem(key));
     }
 
@@ -39,7 +41,7 @@ var mockAPI = function (config) {
 
     api.post = function (data) {
         var raw = getData();
-        if (raw == null  || !raw){
+        if (raw == null  || !raw) {
             raw = [];
         }
 
@@ -55,11 +57,11 @@ var mockAPI = function (config) {
 
 
     api.get = function (id = null) {
-        if (id){
+        if (id) {
             return getADvd(id);
         }
-        return new Promise(function(resolve, reject){
-            if (getData()){
+        return new Promise(function (resolve, reject) {
+            if (getData()) {
                 resolve(getData());
             } else {
                 reject({err: 'Error in Get'});
@@ -69,15 +71,15 @@ var mockAPI = function (config) {
 
     api.delete = function (id = null) {
         var allDvds = getData();
-        return new Promise(function(resolve, reject){
+        return new Promise(function (resolve, reject) {
 
-            if (!id){
+            if (!id) {
                 reject({err: 'need to specify an id: ' + id});
             } else {
                 id = parseInt(id);
                 var theDvd = _.findWhere(allDvds, {id: id});
 
-                if (theDvd){
+                if (theDvd) {
                     allDvds = _.without(allDvds, theDvd);
                     save(allDvds);
                     resolve(theDvd);  //return the removed dvd;
@@ -89,11 +91,11 @@ var mockAPI = function (config) {
     };
 
     // get a single dvd by id
-    function getADvd(id){
-        var id = parseInt(id);
-        var allDvds = getData();
+    function getADvd(id) {
+        var id = parseInt(id),
+            allDvds = getData();
         var theDvd = _.findWhere(allDvds, {id: id});
-        return new Promise(function(resolve, reject){
+        return new Promise(function (resolve, reject) {
             theDvd ? resolve(theDvd) : reject({err: 'Dvd not found - id: ' + id});
         });
     }

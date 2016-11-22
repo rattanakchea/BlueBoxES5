@@ -8,36 +8,20 @@ import {DvdListView} from './views/dvdList';
 
 import {mockAPI} from './utils/mockAPI';
 
-var api = mockAPI({key: 'blueBox2'});
+var api = mockAPI({ key: 'blueBox2' });
 
-
-// fetch data
-api.get().then(function(data){
-
+// Fetch data
+api.get().then(function(data) {
     runApp(data);
-
 });
 
-
-api.get(1).then(function(theDvd){
+api.get(1).then(function(theDvd) {
     console.log(theDvd);
-
-}, function(err){
-    console.og(err);
+}, function(err) {
+    console.log(err);
 });
 
-
-function runApp(DvdCollection){
-
+function runApp(DvdCollection) {
     let dvdLisView = new DvdListView(DvdCollection);
     dvdLisView.render();
-
-    let dvdView = new DvdView(DvdCollection[0]);
-    dvdView.render();
 }
-
-
-
-
-
-
