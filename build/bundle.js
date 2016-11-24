@@ -131,20 +131,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// parameters deconstructor ES5
-	function dvdTemplate(_ref) {
-	    var title = _ref.title,
+	// parameters deconstructor ES6
+	function template2(_ref) {
+	    var id = _ref.id,
+	        title = _ref.title,
 	        image = _ref.image;
 
-
-	    return '<div class="col-xs-3" style="display:inline-block; float:left; position: relative;">\n                <div class="card">\n                    <a href="#"><img class="card-img-top" src=' + image + ' alt="movie title" style="width:200px"></a>\n                </div>\n                <div class="card-block">\n                    <h5 class="card-title">' + title + '</h5>\n                </div>\n            </div>';
-	}
-
-	function template2(_ref2) {
-	    var title = _ref2.title,
-	        image = _ref2.image;
-
-	    return '<div class="col-sm-4 col-lg-4 col-md-4">\n                <div class="thumbnail">\n                <img src=' + image + ' alt="">\n                <div class="caption">\n                    <h4><a href="detail.html">' + title + '</a></h4>\n                    </div>\n                    <div class="ratings">\n                        <p class="pull-right"><a href="#">Add to cart</a></p>\n                        <p>\n                        <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                        </p>\n                    </div>\n                </div>\n            </div>';
+	    return '<div class="col-sm-4 col-lg-4 col-md-4">\n                <div class="thumbnail">\n                <a href="#' + id + '"><img src=' + image + ' alt=""></a>\n                <div class="caption">\n                    <h4><a href="#' + id + '">' + title + '</a></h4>\n                    </div>\n                    <div class="ratings">\n                        <p class="pull-right"><a href="#">Add to cart</a></p>\n                        <p>\n                        <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                        </p>\n                    </div>\n                </div>\n            </div>';
 	}
 
 	var DvdView = exports.DvdView = function (_View) {
@@ -238,7 +231,6 @@
 	            var html = '';
 	            this.collection.forEach(function (DvdModel) {
 	                var view = new _dvd.DvdView(DvdModel);
-	                //html
 	                html += view.template;
 	            });
 	            return html;
@@ -379,7 +371,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	// Data Layer
@@ -392,66 +384,65 @@
 	// };
 
 	function getDefaultDvd(id) {
-	  return {
-	    id: id,
-	    title: 'Ice Age: Collision',
-	    image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
-	    description: 'Scrat’s epic pursuit of the elusive acorn cata'
-	  };
+	    return {
+	        id: id,
+	        title: 'Ice Age: Collision',
+	        image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	        description: 'Scrat’s epic pursuit of the elusive acorn cata'
+	    };
 	}
 
 	var dvds = [{
-	  id: 0,
-	  title: 'Ice Age: Collision Course',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
-	  description: 'Scrat’s epic pursuit of the elusive acorn catapults him into the universe where he' + 'accidentally sets off a series of cosmic events that.'
+	    id: 0,
+	    title: 'Ice Age: Collision Course',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	    description: 'Scrat’s epic pursuit of the elusive acorn catapults him into the universe where he' + 'accidentally sets off a series of cosmic events that.'
 	}, {
-	  id: 1,
-	  title: 'The Legend of Tarzan',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
-	  description: 'Scark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	    id: 1,
+	    title: 'The Legend of Tarzan',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
+	    description: 'Scark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
 	}, {
-	  id: 2,
-	  title: 'X-Men: Apocalypse',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
-	  description: 'Scrark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	    id: 2,
+	    title: 'X-Men: Apocalypse',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
+	    description: 'Scrark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
 	}, {
-	  id: 3,
-	  title: 'Ice Age: Collision Course',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
-	  description: 'Scrat’s epict full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	    id: 3,
+	    title: 'Ice Age: Collision Course',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8421.jpg',
+	    description: 'Scrat’s epict full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
 	}, {
-	  id: 4,
-	  title: 'The Legend of Tarzan',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
-	  description: 'Scrat’s of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	    id: 4,
+	    title: 'The Legend of Tarzan',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
+	    description: 'Scrat’s of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
 	}, {
-	  id: 5,
-	  title: 'X-Men: Apocalypse',
-	  image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
-	  description: 'Scrat’s epic comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+	    id: 5,
+	    title: 'X-Men: Apocalypse',
+	    image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
+	    description: 'Scrat’s epic comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
 	}];
 
 	function createDvd(id, title, image, trailer) {
-	  var description = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+	    var description = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
 
-	  return {
-	    id: id,
-	    title: title,
-	    image: image,
-	    description: description,
-	    trailer: trailer
-	  };
+	    return {
+	        id: id,
+	        title: title,
+	        image: image,
+	        description: description,
+	        trailer: trailer
+	    };
 	}
 
 	function _module() {
-
-	  return {
-	    getOneDvd: getDefaultDvd,
-	    getDvds: function getDvds() {
-	      return dvds;
-	    }
-	  };
+	    return {
+	        getOneDvd: getDefaultDvd,
+	        getDvds: function getDvds() {
+	            return dvds;
+	        }
+	    };
 	};
 
 	exports.module = _module;

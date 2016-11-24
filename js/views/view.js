@@ -2,12 +2,12 @@
 
 export class View {
 
-    constructor(selector, template){
+    constructor(selector, template) {
         this.el = document.querySelector(selector);
         this.template = template;
     }
 
-    render(){
+    render() {
         this.el.innerHTML = this.template;
     }
 

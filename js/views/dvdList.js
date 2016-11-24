@@ -3,17 +3,16 @@ import {DvdView} from './dvd';
 
 export class DvdListView extends View {
 
-    constructor(DvdCollection){
+    constructor(DvdCollection) {
         super('#app', null);
         this.collection = DvdCollection;
         this.template = this.buildTemplate();
     }
 
-    buildTemplate(){
+    buildTemplate() {
         var html = '';
-        this.collection.forEach(function(DvdModel){
+        this.collection.forEach(function(DvdModel) {
             let view = new DvdView(DvdModel);
-            //html
             html += view.template;
         });
         return html;
