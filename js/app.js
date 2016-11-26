@@ -2,8 +2,13 @@
  * Created by rchea on 11/17/16.
  */
 
-import {Dvd} from './models/dvd';
-import {DvdView} from './views/dvd';
+
+
+
+
+
+import {Router} from './router';
+
 import {DvdListView} from './views/dvdList';
 
 import {mockAPI} from './utils/mockAPI';
@@ -22,6 +27,6 @@ api.get(1).then(function(theDvd) {
 });
 
 function runApp(DvdCollection) {
-    let dvdLisView = new DvdListView(DvdCollection);
-    dvdLisView.render();
+    let dvdListView = new DvdListView(DvdCollection);
+    dvdListView.render();
 }

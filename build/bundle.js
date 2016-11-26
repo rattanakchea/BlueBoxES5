@@ -46,21 +46,19 @@
 
 	'use strict';
 
-	var _dvd = __webpack_require__(1);
-
-	var _dvd2 = __webpack_require__(2);
+	var _router = __webpack_require__(1);
 
 	var _dvdList = __webpack_require__(4);
 
 	var _mockAPI = __webpack_require__(5);
 
+	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
+
+	// Fetch data
 	/**
 	 * Created by rchea on 11/17/16.
 	 */
 
-	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
-
-	// Fetch data
 	api.get().then(function (data) {
 	    runApp(data);
 	});
@@ -72,45 +70,96 @@
 	});
 
 	function runApp(DvdCollection) {
-	    var dvdLisView = new _dvdList.DvdListView(DvdCollection);
-	    dvdLisView.render();
+	    var dvdListView = new _dvdList.DvdListView(DvdCollection);
+	    dvdListView.render();
 	}
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.router = router;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _dvd = __webpack_require__(2);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _mockAPI = __webpack_require__(5);
 
-	//var _ = require('../../bower_components/underscore/underscore');
+	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
 
-	var Dvd = exports.Dvd = function () {
-	    function Dvd(title, image, description) {
-	        _classCallCheck(this, Dvd);
+	// a hash to store our routes
+	var routes = {};
 
-	        this.title = title;
-	        this.image = image;
-	        this.description = description;
+	// The route registering function
+	function route(path, templateId, controller) {
+	    routes[path] = {
+	        templateId: templateId,
+	        controller: controller
+	    };
+	}
+
+	function HomeController() {
+	    console.log('at home');
+
+	    $('#detail').fadeOut();
+	    $('#home').fadeIn();
+	}
+
+	function DetailController(id) {
+	    console.log('at detail page of dvd: ', id);
+
+	    $('#home').fadeOut();
+
+	    // Dvd lookup
+	    api.get(id).then(function (dvd) {
+	        var dvdView = new _dvd.DvdView(dvd).template;
+	        $('#detail').empty().append(dvdView).fadeIn();
+	    });
+	}
+
+	// Register routes
+
+	routes = {
+
+	    'home': {
+	        templateId: '#home',
+	        controller: HomeController
+	    },
+
+	    'detail/:id': {
+	        templateId: '#detail',
+	        controller: DetailController
 	    }
 
-	    _createClass(Dvd, [{
-	        key: "toString",
-	        value: function toString() {
-	            //template string use back tick
-	            return this.title + " " + this.description;
-	        }
-	    }]);
+	};
 
-	    return Dvd;
-	}();
+	function router() {
+	    var path = location.hash.slice(1) || '/';
+	    var dvdDetailRegex = new RegExp('detail\/\\d');
+
+	    var test = dvdDetailRegex.test(path);
+	    if (test) {
+	        // get the id - the second part after /
+	        var id = path.split('/')[1];
+
+	        var regex = /\/\d/;
+	        path = path.replace(regex, '/:id');
+
+	        // console.log('after replace: ', path);
+	        var route = routes[path];
+	        route.controller(id);
+	    } else {
+	        // homeController
+
+	        routes['home'].controller();
+	    }
+	}
+
+	window.addEventListener('hashchange', router);
 
 /***/ },
 /* 2 */
@@ -137,7 +186,7 @@
 	        title = _ref.title,
 	        image = _ref.image;
 
-	    return '<div class="col-sm-4 col-lg-4 col-md-4">\n                <div class="thumbnail">\n                <a href="#' + id + '"><img src=' + image + ' alt=""></a>\n                <div class="caption">\n                    <h4><a href="#' + id + '">' + title + '</a></h4>\n                    </div>\n                    <div class="ratings">\n                        <p class="pull-right"><a href="#">Add to cart</a></p>\n                        <p>\n                        <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                        </p>\n                    </div>\n                </div>\n            </div>';
+	    return '<div class="col-sm-4 col-lg-4 col-md-4">\n                <div class="thumbnail">\n                    <a href="#detail/' + id + '"><img src=' + image + ' alt=""></a>\n                    <div class="caption">\n                        <h4><a href="#' + id + '">' + title + '</a></h4>\n                    </div>\n                    <div class="ratings">\n                        <p class="pull-right"><a href="#">Add to cart</a></p>\n                        <p>\n                        <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                            <span class="glyphicon glyphicon-star"></span>\n                        </p>\n                    </div>\n                </div>\n            </div>';
 	}
 
 	var DvdView = exports.DvdView = function (_View) {

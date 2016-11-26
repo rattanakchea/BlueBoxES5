@@ -4,9 +4,9 @@ import {View} from './view';
 function template2({ id, title, image }) {
     return `<div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                <a href="#${id}"><img src=${image} alt=""></a>
-                <div class="caption">
-                    <h4><a href="#${id}">${title}</a></h4>
+                    <a href="#detail/${id}"><img src=${image} alt=""></a>
+                    <div class="caption">
+                        <h4><a href="#${id}">${title}</a></h4>
                     </div>
                     <div class="ratings">
                         <p class="pull-right"><a href="#">Add to cart</a></p>
