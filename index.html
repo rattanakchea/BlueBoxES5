@@ -29,8 +29,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/
-">About</a>
+                    <a href="#" data-toggle="modal" data-target="#aboutModal">About</a>
                 </li>
             </ul>
         </div>
@@ -99,7 +98,32 @@
 
 
         <div class="col-md-9" id="detail">
+        </div>
 
+        <!-- About Modal -->
+        <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">About BlueBox Emulator</h4>
+              </div>
+              <div class="modal-body">
+                  <p>BlueBox Emulator was built to simulate Red Box Dvd Rental Kiosk</p>
+
+                  <h2>Technology</h2>
+                  <ul>
+                      <li>ES2015</li>
+                      <li>Modified MVC</li>
+                      <li>Build my own router to handle routing in SPA</li>
+                      <li>WebPack, NPM script</li>
+                  </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
 
     </div>

@@ -1,7 +1,7 @@
 import {View} from './view';
 
 // parameters deconstructor ES6
-function template({ id, title, image, description}) {
+function template({ id, title, image, description }) {
     return `<div class="row">
                 <div class="col-lg-12">
                     <h3 class="page-header">${title}</h3>
