@@ -1,7 +1,7 @@
 import {View} from './view';
 
 // parameters deconstructor ES6
-function template2({ id, title, image }) {
+function defaultTemplate({ id, title, image }) {
     return `<div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
                     <a href="#detail/${id}"><img src=${image} alt=""></a>
@@ -22,8 +22,12 @@ function template2({ id, title, image }) {
 }
 
 export class DvdView extends View {
-    constructor(DvdModel) {
-        super('#dvdView', template2(DvdModel));
+    constructor(DvdModel, template) {
+        super();
+        var template = template || defaultTemplate;
+
+        this.el = '#dvdView';
+        this.template = template(DvdModel);
         this.model = DvdModel;
     }
 }

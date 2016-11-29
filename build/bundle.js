@@ -48,17 +48,18 @@
 
 	var _router = __webpack_require__(1);
 
-	var _dvdList = __webpack_require__(6);
+	var _dvdList = __webpack_require__(7);
 
-	var _mockAPI = __webpack_require__(4);
+	var _cart = __webpack_require__(8);
 
-	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
+	var _mockAPI = __webpack_require__(5);
 
-	// Fetch data
 	/**
 	 * Created by rchea on 11/17/16.
 	 */
+	var api = (0, _mockAPI.mockAPI)({ key: 'blueBox2' });
 
+	// Fetch data
 	api.get().then(function (data) {
 	    runApp(data);
 	});
@@ -70,6 +71,9 @@
 	});
 
 	function runApp(DvdCollection) {
+	    var cartView = new _cart.CartView(DvdCollection);
+	    cartView.render(); // render cart
+
 	    var dvdListView = new _dvdList.DvdListView(DvdCollection);
 	    dvdListView.render();
 	}
@@ -87,9 +91,9 @@
 
 	var _dvd = __webpack_require__(2);
 
-	var _dvdDetail = __webpack_require__(7);
+	var _dvdDetail = __webpack_require__(4);
 
-	var _mockAPI = __webpack_require__(4);
+	var _mockAPI = __webpack_require__(5);
 
 	var api = (0, _mockAPI.mockAPI)({ key: "blueBox2" });
 
@@ -179,7 +183,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// parameters deconstructor ES6
-	function template2(_ref) {
+	function defaultTemplate(_ref) {
 	    var id = _ref.id,
 	        title = _ref.title,
 	        image = _ref.image;
@@ -190,11 +194,15 @@
 	var DvdView = exports.DvdView = function (_View) {
 	    _inherits(DvdView, _View);
 
-	    function DvdView(DvdModel) {
+	    function DvdView(DvdModel, template) {
 	        _classCallCheck(this, DvdView);
 
-	        var _this = _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this, '#dvdView', template2(DvdModel)));
+	        var _this = _possibleConstructorReturn(this, (DvdView.__proto__ || Object.getPrototypeOf(DvdView)).call(this));
 
+	        var template = template || defaultTemplate;
+
+	        _this.el = '#dvdView';
+	        _this.template = template(DvdModel);
 	        _this.model = DvdModel;
 	        return _this;
 	    }
@@ -245,9 +253,53 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.DvdDetailView = undefined;
+
+	var _view = __webpack_require__(3);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// parameters deconstructor ES6
+	function template(_ref) {
+	    var id = _ref.id,
+	        title = _ref.title,
+	        image = _ref.image,
+	        description = _ref.description;
+
+	    return '<div class="row">\n                <div class="col-lg-12">\n                    <h3 class="page-header">' + title + '</h3>\n                </div>\n            </div>\n            <div class="row">\n                <div class="col-md-8">\n                    <img class="img-responsive" src=' + image + ' alt="">\n                </div>\n                <div class="col-md-4">\n                    <p>' + description + '</p>\n                    <ul>\n                        <li>Genre:</li>\n                        <li>Actor: </li>\n                        <li>Language:</li>\n                    </ul>\n                </div>\n            </div>\n            <!-- /.row -->\n            <br/>\n            <div class="row action">\n                <div class="col-md-8">\n                    <button class="btn btn-primary">Add to cart +</button>\n                </div>\n            </div>';
+	}
+
+	var DvdDetailView = exports.DvdDetailView = function (_View) {
+	    _inherits(DvdDetailView, _View);
+
+	    function DvdDetailView(DvdModel) {
+	        _classCallCheck(this, DvdDetailView);
+
+	        var _this = _possibleConstructorReturn(this, (DvdDetailView.__proto__ || Object.getPrototypeOf(DvdDetailView)).call(this, '#dvdView', template(DvdModel)));
+
+	        _this.model = DvdModel;
+	        return _this;
+	    }
+
+	    return DvdDetailView;
+	}(_view.View);
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.mockAPI = undefined;
 
-	var _data = __webpack_require__(5);
+	var _data = __webpack_require__(6);
 
 	var faker = (0, _data.module)(); // jscs:disable
 
@@ -356,7 +408,7 @@
 	exports.mockAPI = mockAPI;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -439,7 +491,7 @@
 	exports.module = _module;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -495,7 +547,7 @@
 	}(_view.View);
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -503,9 +555,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.DvdDetailView = undefined;
+	exports.CartView = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _view = __webpack_require__(3);
+
+	var _dvd = __webpack_require__(2);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -513,29 +569,43 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// parameters deconstructor ES6
 	function template(_ref) {
-	    var id = _ref.id,
-	        title = _ref.title,
-	        image = _ref.image,
-	        description = _ref.description;
+	    var image = _ref.image;
 
-	    return '<div class="row">\n                <div class="col-lg-12">\n                    <h3 class="page-header">' + title + '</h3>\n                </div>\n            </div>\n            <div class="row">\n                <div class="col-md-8">\n                    <img class="img-responsive" src=' + image + ' alt="">\n                </div>\n                <div class="col-md-4">\n                    <p>' + description + '</p>\n                    <ul>\n                        <li>Genre:</li>\n                        <li>Actor: </li>\n                        <li>Language:</li>\n                    </ul>\n                </div>\n            </div>\n            <!-- /.row -->\n            <br/>\n            <div class="row action">\n                <div class="col-md-8">\n                    <button class="btn btn-primary">Add to cart +</button>\n                </div>\n            </div>';
+	    return '<img src=' + image + ' alt="" style="width:100px; padding: 10px; border: 1px solid #3c3c3c;">';
 	}
 
-	var DvdDetailView = exports.DvdDetailView = function (_View) {
-	    _inherits(DvdDetailView, _View);
+	var CartView = exports.CartView = function (_View) {
+	    _inherits(CartView, _View);
 
-	    function DvdDetailView(DvdModel) {
-	        _classCallCheck(this, DvdDetailView);
+	    function CartView(DvdCollection) {
+	        _classCallCheck(this, CartView);
 
-	        var _this = _possibleConstructorReturn(this, (DvdDetailView.__proto__ || Object.getPrototypeOf(DvdDetailView)).call(this, '#dvdView', template(DvdModel)));
+	        var _this = _possibleConstructorReturn(this, (CartView.__proto__ || Object.getPrototypeOf(CartView)).call(this, '#cart', null));
 
-	        _this.model = DvdModel;
+	        _this.collection = DvdCollection;
+	        _this.template = _this.buildTemplate();
 	        return _this;
 	    }
 
-	    return DvdDetailView;
+	    _createClass(CartView, [{
+	        key: 'buildTemplate',
+	        value: function buildTemplate() {
+	            var html = '';
+	            this.collection.forEach(function (DvdModel) {
+	                var view = new _dvd.DvdView(DvdModel, template);
+	                html += view.template;
+	            });
+	            return html;
+	        }
+	    }, {
+	        key: 'add',
+	        value: function add(dvdModel) {
+	            this.collection.push(dvdModel);
+	        }
+	    }]);
+
+	    return CartView;
 	}(_view.View);
 
 /***/ }
