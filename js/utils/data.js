@@ -29,13 +29,13 @@ var dvds = [
         id: 1,
         title: 'The Legend of Tarzan',
         image: '//images.redbox.com/Images/EPC/boxartlarge/8177.jpg',
-        description: 'Scark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+        description: 'Movie of of a boy living in a jungle.'
     },
     {
         id: 2,
         title: 'X-Men: Apocalypse',
         image: '//images.redbox.com/Images/EPC/boxartlarge/8416.jpg',
-        description: 'Scrark on a quest full of comedy and adventure, traveling to exotic new lands and encountering a host of colorful new characters.'
+        description: 'x men: apocalyse description of movie.'
     },
     {
         id: 3,
