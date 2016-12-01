@@ -4,3 +4,5 @@ build/*.map
 build/build.js
 bower_components
 .idea/
+.vscode
+npm-debug.log
